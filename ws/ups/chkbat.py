@@ -19,25 +19,37 @@ if int(tonbat) == 0:
 
 # Time left in mins
 timeleft = float(subprocess.check_output("apcaccess -up TIMELEFT", shell=True))
+#timeleft = 1
 if timeleft > 10:
 	print("Still have time to kill")
-#	sys.exit(0)
-
-# If less than 5 mins left force shutdown
-if timeleft < 5:
-	#TODO...
-	subprocess.run("virsh destroy " + vm, shell=True)
 	sys.exit(0)
 
-# Less than 10 mins left so commence graceful shutdown sequence
-vms = subprocess.check_output("virsh list", shell=True)
-res = re.search(r"^\s\d\s*(\w+)", vms, re.MULTILINE)
-if res == None:
-	print("ERROR")
+# At 10 & 5 min markers start dealing with VM shutdowns
+if timeleft < 10 and timeleft > 2.5:
+	# Check for running VMs
+	vms = subprocess.check_output("virsh list", shell=True)
+	res = re.findall(r"^\s\d\s*(\S+)", vms, re.MULTILINE)
+	if not(res):
+		print("No VMs running")
+		sys.exit(0)    
+   
+	# Less than 10 mins left so commence graceful VM shutdown
+	if timeleft < 10 and timeleft > 5:
+		for vm in res:
+			print("shutting down " + vm)
+			subprocess.call("virsh shutdown " + vm, shell=True)
+   
+	# If less than 5 mins left force VM shutdown
+	if timeleft < 5:
+		for vm in res:
+			print("killing " + vm)
+			subprocess.call("virsh destroy " + vm, shell=True)
+			
 	sys.exit(0)
 
-#print(res.group(0))
-#print(res.group(1)) 
-for vm in res.groups():
-	print("shutting down " + vm)
-	subprocess.call("virsh shutdown" + vm, shell=True)
+# If less than 2-1/2 mins left shutdown system
+if timeleft < 2.5:
+	print("shutting down system")
+	subprocess.call("shutdown now", shell=True)
+
+
