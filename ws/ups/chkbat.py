@@ -5,7 +5,7 @@ import sys
 tonbat = subprocess.check_output("apcaccess -up TONBATT", shell=True)
 if int(tonbat) == 0:
 	print("On line voltage")
-#	sys.exit(0)
+	sys.exit(0)
 
 #charge = subprocess.check_output("apcaccess -up BCHARGE", shell=True)
 #print(type(output))
