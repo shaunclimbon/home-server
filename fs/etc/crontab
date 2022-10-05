@@ -15,8 +15,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #
 
 # custom crons
-# can check syslog to confirm exectuion (grep script-name /var/log/syslog)
 */1 *   * * *   root    python /usr/local/sbin/chkbat.py
 */5 *	* * *   root    /usr/local/sbin/checkmyip.sh
 0 3	* * *   root    /usr/local/sbin/snapraid.sh
+0 1	* * 0   root    /usr/local/sbin/snapraid_scrub.sh
 #

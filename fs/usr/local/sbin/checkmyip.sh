@@ -40,6 +40,6 @@ if [ $SEND_IP -eq 1 ]; then
   sudo echo $IP_NOW > $file
   sudo echo $IP_NOW > $ramfile
   #echo "SEND EMAIL!"
-  printf "Subject: DeepCool Message\n\nNew IP Address: $IP_NOW" | ssmtp your.email@mail.com 
+  printf "Subject: DeepCool Message\n\nNew IP Address: $IP_NOW" | ssmtp your@email.com
 fi
 
