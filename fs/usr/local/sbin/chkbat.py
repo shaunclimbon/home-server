@@ -1,3 +1,6 @@
+# This script checks backup battery levels and will shutdown the system as levels get low.
+# Based on an APC Back-UPS Pro BR 1000/1350/1500 MS, but could work for other APC models.
+
 import re
 import subprocess
 import sys
