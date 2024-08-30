@@ -1,0 +1,10 @@
+/var/log/snapraid.log
+/var/log/snapraid_stdout.log
+{
+        rotate 4
+        weekly
+        compress
+        create
+        missingok
+        notifempty
+}

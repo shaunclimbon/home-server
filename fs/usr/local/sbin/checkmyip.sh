@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Suggested crontab entry:
+# */5 *   * * *   root    /usr/local/sbin/checkmyip.sh >/dev/null 2>&1
+
 file="/var/local/myip.dat"
 ramfile="/tmp/myip.dat"
 SEND_IP=0
